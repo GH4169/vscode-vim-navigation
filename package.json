@@ -1,0 +1,44 @@
+{
+  "name": "vim-navigation",
+  "displayName": "Vim Navigation",
+  "description": "Vim Navigation — independently maintained local extension.",
+  "publisher": "local",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "vimNavigation.captureSidebarVisibility",
+        "title": "vimNavigation.captureSidebarVisibility"
+      },
+      {
+        "command": "vimNavigation.toggleExplorer",
+        "title": "vimNavigation.toggleExplorer"
+      },
+      {
+        "command": "vimNavigation.closeExplorer",
+        "title": "vimNavigation.closeExplorer"
+      },
+      {
+        "command": "vimNavigation.replaceCurrentTab",
+        "title": "vimNavigation.replaceCurrentTab"
+      }
+    ]
+  },
+  "extensionDependencies": [
+    "vscodevim.vim"
+  ]
+}
