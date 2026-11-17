@@ -3,7 +3,7 @@
   "displayName": "Vim Navigation",
   "description": "Vim Navigation — independently maintained local extension.",
   "publisher": "local",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "engines": {
     "vscode": "^1.96.0"
@@ -20,6 +20,10 @@
   ],
   "contributes": {
     "commands": [
+      {
+        "command": "vimNavigation.navigateRightToCodex",
+        "title": "Vim: Focus Right Editor or Visible Codex Input"
+      },
       {
         "command": "vimNavigation.captureSidebarVisibility",
         "title": "vimNavigation.captureSidebarVisibility"

@@ -2,6 +2,7 @@
 const vscode = require('vscode');
 const { toggleSidebar } = require('./sidebar-toggle');
 const { replaceCurrentTab } = require('./replace-tab');
+const { navigateRightToCodex } = require('./codex-focus');
 function activate(context) {
   let sidebarVisible = false;
   const run = (name, args) => vscode.commands.executeCommand(name, args);
@@ -27,6 +28,20 @@ function activate(context) {
   register('vimNavigation.closeExplorer', async () => {
     await toggleSidebar(true, run);
     sidebarVisible = false;
+  });
+  register('vimNavigation.navigateRightToCodex', (args) => {
+    const viewId = args?.viewId;
+    if (
+      !['chatgpt.sidebarSecondaryView', 'chatgpt.sidebarView'].includes(viewId)
+    )
+      return;
+    return navigateRightToCodex(
+      {
+        activeGroup: () => vscode.window.tabGroups.activeTabGroup,
+        run,
+      },
+      viewId
+    );
   });
   register('vimNavigation.replaceCurrentTab', () =>
     replaceCurrentTab({

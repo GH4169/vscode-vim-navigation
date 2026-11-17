@@ -3,6 +3,40 @@ const { test } = require('node:test'),
   assert = require('node:assert/strict');
 const { replaceCurrentTab } = require('../replace-tab'),
   { toggleSidebar } = require('../sidebar-toggle');
+const { navigateRightToCodex } = require('../codex-focus');
+test('right editor group takes priority over the visible Codex input', async () => {
+  let active = {};
+  const right = {};
+  const calls = [];
+  await navigateRightToCodex(
+    {
+      activeGroup: () => active,
+      async run(id) {
+        calls.push(id);
+        active = right;
+      },
+    },
+    'chatgpt.sidebarSecondaryView'
+  );
+  assert.deepEqual(calls, ['workbench.action.focusRightGroupWithoutWrap']);
+});
+test('right boundary focuses the Codex view directly without reopening its container', async () => {
+  const group = {};
+  const calls = [];
+  await navigateRightToCodex(
+    {
+      activeGroup: () => group,
+      async run(id) {
+        calls.push(id);
+      },
+    },
+    'chatgpt.sidebarSecondaryView'
+  );
+  assert.deepEqual(calls, [
+    'workbench.action.focusRightGroupWithoutWrap',
+    'chatgpt.sidebarSecondaryView.focus',
+  ]);
+});
 test('toggle uses explicit visibility and focuses tree on opening', async () => {
   const calls = [];
   await toggleSidebar(false, async (id) => calls.push(id));
